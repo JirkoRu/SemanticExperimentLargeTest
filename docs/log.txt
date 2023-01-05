@@ -783,3 +783,7 @@
 2022/12/09 12:51:54 : jirko/test : starting participant 'sPx8sHheQW21'
 2022/12/09 12:52:46 : jirko/test : writing participant 'sPx8sHheQW21' in '../../data/tmp/sPx8sHheQW21.txt'
 2022/12/09 12:52:46 : jirko/test : moving file from '../../data/tmp/sPx8sHheQW21.txt' to '../../data/resize/sPx8sHheQW21.txt'
+2023/01/05 12:25:26 : jirko/test : starting participant 'vOETR2Q3AGfp'
+2023/01/05 12:25:43 : jirko/test : starting participant 'vOETR2Q3AGfp'
+2023/01/05 12:25:45 : jirko/test : writing participant 'vOETR2Q3AGfp' in '../../data/tmp/vOETR2Q3AGfp.txt'
+2023/01/05 12:25:45 : jirko/test : moving file from '../../data/tmp/vOETR2Q3AGfp.txt' to '../../data/resize/vOETR2Q3AGfp.txt'

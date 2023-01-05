@@ -42,53 +42,6 @@ function drawRectButton(paper,centre,text, attrText, attrButton, handle){
   return(button)
 }
 
-function drawNButtons(paper, centres, nProperties, radius, texts, handle){
-  // a function which allows me to draw all different buttons on screen
-  // docstring tba
-  // define an empty array for our buttons and the button radius
-  var buttons = [];
-
-  for (var nButton = 0; nButton < nProperties*2; nButton++){
-
-    // draw alternating left and right semicircles
-    if (nButton % 2){
-      currentButton = drawSpecCircle(paper, centres[(nButton-1)/2][0], centres[(nButton-1)/2][1], radius, 270, 90, {});
-      // I want labels for each button, we draw the text
-      buttontext = drawText(paper.object, [centres[(nButton-1)/2][0] + (.5*radius), centres[(nButton-1)/2][1]], texts[1]);
-    }
-
-    else {
-      currentButton = drawSpecCircle(paper,   centres[nButton/2][0], centres[nButton/2][1], radius, 90, 270, {});
-      // I also want labels for each button, we draw the text
-      buttontext = drawText(paper.object, [centres[nButton/2][0] - (.5*radius), centres[nButton/2][1]], texts[0]);
-    }
-
-    // define the relevant attributes of the buttons
-    currentButton.attr(board.attr_buttonshape);
-    //currentButton.toFront();
-
-    // we also set the attributes of my button text
-    buttontext.attr(board.attr_buttontext);
-    //buttontext.toFront();
-
-
-    // push text and Button into one object
-    var button = paper.object.set();
-    button.push(
-      currentButton,
-      buttontext
-    );
-
-    // check if we have a button event attached
-    if (typeof(handle)=='function') {
-      button.click(handle);
-    }
-    
-    buttons.push(button);
-  }
-  return (buttons);
-}
-
 function drawNCircButtons(paper, centres, nProperties, radius, handle){
   // a function which allows me to draw all different buttons on screen
   // docstring tba
@@ -149,7 +102,6 @@ function drawFeedback(paper, centres, radius, attrText, text){
 
   return (feedbackText);
 }
-
 
 
 

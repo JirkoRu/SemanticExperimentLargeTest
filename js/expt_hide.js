@@ -84,3 +84,7 @@ function showTimeoutMssg(){
   board.timeoutMssg.object.attr({"opacity": 1});
 }
 
+function hideIcon(){
+  board.iconimage.object.attr({"opacity":0});
+}
+

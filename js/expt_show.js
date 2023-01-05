@@ -10,7 +10,6 @@ function showTrial() {
 }
 
 function showStimuli() {
-  var att = [sdata.trial_att[coding.index]];
 
   // this shows an image
   board.image.objects[sdata.vbxi_category[coding.index]][sdata.exemplar[coding.index]].attr({"opacity": 1});
@@ -157,6 +156,11 @@ function UpdateFeedbackText(index){
     board.posFeedText.objects[index].attr({"opacity":1})
     board.posFeedText.objects[index].toFront()
 }
+
+function showIcon(){
+  board.iconimage.object.attr({"opacity":1});
+}
+
 
 
 

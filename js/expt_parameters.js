@@ -142,6 +142,7 @@ async function setExperiment() {
   parameters.nb_blocks        =   8;
 
   parameters.nProperties      =  14;
+  parameters.nTestProperties  =   3;
   parameters.nClasses         =   8;
   parameters.nExemplars       =  20;
 
@@ -452,6 +453,39 @@ async function setExperiment() {
       }
     
       board.image.objects = parameters.image.randomOrder.map((i)=>board.image.object[i]);
+
+      // -------------- Draw the Planet icon ----------------
+      board.iconimage = {};
+      board.iconimage.rectangle = [ board.paper.centre[0] - board.paper.width/4,
+                                    board.paper.centre[1] - board.paper.height * (2/5),
+                                    board.paper.width/2.6,
+                                    board.paper.height/2.6
+                                  ];
+
+      board.iconimage.object = drawImage(
+          board.paper.object, 
+          "media/testImages/planet_icon.png",
+          board.image.rectangle
+          );
+      board.iconimage.object.attr({"opacity":0});
+
+      // -------------- Draw three buttons for selecting words ----------
+      board.testButtons = {};
+
+      // define button relevant parameters for drawing //
+
+      // get the radius of our buttons
+      board.testButtons.radius = board.paper.width / (6.8 * (parameters.nTestProperties)); 
+    
+      // centres of the n buttons
+      board.testButtons.buttonCentres = Array(parameters.nTestProperties);
+      // we loop to creat evenly spaced button centres,
+      for(var i = 1; i <= board.testButtons.buttonCentres ; i++){
+        // adding the buttons
+        board.testButtons.buttonCentres[i-1] = [(board.paper.width/(parameters.nTestProperties + 1)) * i, board.paper.centre[1] + board.paper.height/5.5];
+      }
+
+
     
       // --------- CODING ------------
       coding = {};
