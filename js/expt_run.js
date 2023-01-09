@@ -6,6 +6,9 @@ function runExperiment(){
   // hideFeedback();
   // hide all instructions
   hideAllInstructions();
+  
   // START
-  newTrial();
+  updateTestSdata()
+  showTestTrial();
+  // newTrial();
 }

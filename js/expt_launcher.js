@@ -23,6 +23,7 @@ function nextTrial() {
 
   // INCREMENT BLOCK
   if (coding.trial==parameters.nb_trials) {
+    // showTestTrial();
     sdata.block_bonus[coding.block] = sdata.trial_bonus.slice(coding.block*parameters.nb_trials, coding.index).reduce((pv, cv) => pv + cv, 0);
     coding.block++;
     coding.trial=0;

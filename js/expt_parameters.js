@@ -138,8 +138,9 @@ async function setExperiment() {
   parameters.timeoutMssgtime   =  900;        // length of presentation of timeout mssg
 
   // numbers
-  parameters.nb_trials        =  20;
+  parameters.nb_trials        =   20;
   parameters.nb_blocks        =   8;
+  parameters.nTestTrials      =   64;
 
   parameters.nProperties      =  14;
   parameters.nTestProperties  =   3;
@@ -194,6 +195,12 @@ async function setExperiment() {
   sdata.exemplar          = [];
   sdata.trialProperties   = [];       // the properties of the current trial
   sdata.trialPropShuff    = Array.from(new Array(parameters.stim_order.length), function(){return [];});     // the properties in the order as shuffeled for the current trial
+
+  // vbxi for test trials
+  sdata.testprops         = []; 
+  sdata.TestRandomorder   = [];
+  sdata.testpropsshuff    = [];
+  sdata.test_responses    = [...Array(parameters.nTestTrials)].map(e => Array(parameters.nTestProperties).fill(NaN));
 
   // bonus
   sdata.trial_bonus       = [];
@@ -423,8 +430,78 @@ async function setExperiment() {
       board.attr_labels = {"fill":board.color_text,"font-size": board.paper.width/44, "text-anchor" : "middle", "opacity":0};
       board.labels = {}; 
       board.labels.objects = drawLabels(board.paper, board.buttonCentres, board.propertiesShuff, board.attr_labels);
+
+
+      // -------------- Draw the Planet icon ----------------
+      board.iconimage = {};
+      board.iconimage.rectangle = [ board.paper.centre[0] - board.paper.width/5.2,
+                                    board.paper.centre[1] - board.paper.height * (2/5),
+                                    board.paper.width/2.6,
+                                    board.paper.height/2.6
+                                  ];
+
+      board.iconimage.object = drawImage(
+          board.paper.object, 
+          "media/testImages/planet_icon.png",
+          board.iconimage.rectangle
+          );
+      board.iconimage.object.attr({"opacity":0});
+
+      // -------------- make test buttons ----------
+      board.testButtons = {};
+      
+      // define button relevant parameters for drawing the test Buttons //
+      // get the radius of our buttons
+      board.testButtons.radius = board.paper.width / (6.8 * (parameters.nTestProperties)); 
     
-    
+      // centres of the n buttons
+      board.testButtons.buttonCentres = Array(parameters.nTestProperties);
+      // we loop to creat evenly spaced button centres,
+      for(var i = 1; i <= board.testButtons.buttonCentres.length ; i++){
+        // adding the buttons
+        board.testButtons.buttonCentres[i-1] = [(board.paper.width/(parameters.nTestProperties + 1)) * i, board.paper.centre[1] + board.paper.height/7];
+      }
+      board.testButtons.object = drawNCircButtons(board.paper, board.testButtons.buttonCentres, parameters.nTestProperties, board.testButtons.radius);
+
+      board.testButtons.object.map((x, index)=>x.click(function(e){
+        handleTestButtonFeedback(index)}));
+
+      // hide the buttons 
+      board.testButtons.object.map((x)=>x.attr({"opacity": 0}));
+
+      // add the glow
+      board.testButtons.object.glow = Array(board.testButtons.object.length);
+
+      // make the labels
+      board.testButtons.labels = board.propertiesShuff.slice(6);
+      board.testButtons.labelobject = drawLabels(board.paper, board.testButtons.buttonCentres, board.testButtons.labels, board.attr_labels);
+
+      // ------------- draw the first second and third icons ---------------
+      board.levelIcons = {};
+      board.levelIcons.rectangles = []
+      board.levelIcons.strings = ["first.png", "second.png", "third.png"]
+
+      // make the rectangles
+      for (let k = 0; k < board.testButtons.buttonCentres.length; k++) {
+        board.levelIcons.rectangles[k]= [board.testButtons.buttonCentres[k][0] - board.paper.width/12,
+                                          board.testButtons.buttonCentres[k][1] + board.paper.height/12,
+                                          board.paper.width/6,
+                                          board.paper.height/6
+                                        ];
+      }
+      
+      // draw the images
+      board.levelIcons.objects = [...Array(board.levelIcons.strings.length)].map(e => Array(board.levelIcons.strings.length).fill(NaN));
+
+      for (let i = 0; i < board.levelIcons.strings.length; i++) {
+        for (let k = 0; k < board.levelIcons.strings.length; k++) {
+          board.levelIcons.objects[i][k] = drawImage(board.paper.object, 
+                                                  "media/testImages/" + board.levelIcons.strings[i],
+                                                  board.levelIcons.rectangles[k]
+                                                  );
+          board.levelIcons.objects[i][k].attr({"opacity":0});
+        }
+      }
       // ------- Stimuli ----------
     
       //loading all the images for all the classes
@@ -453,39 +530,6 @@ async function setExperiment() {
       }
     
       board.image.objects = parameters.image.randomOrder.map((i)=>board.image.object[i]);
-
-      // -------------- Draw the Planet icon ----------------
-      board.iconimage = {};
-      board.iconimage.rectangle = [ board.paper.centre[0] - board.paper.width/4,
-                                    board.paper.centre[1] - board.paper.height * (2/5),
-                                    board.paper.width/2.6,
-                                    board.paper.height/2.6
-                                  ];
-
-      board.iconimage.object = drawImage(
-          board.paper.object, 
-          "media/testImages/planet_icon.png",
-          board.image.rectangle
-          );
-      board.iconimage.object.attr({"opacity":0});
-
-      // -------------- Draw three buttons for selecting words ----------
-      board.testButtons = {};
-
-      // define button relevant parameters for drawing //
-
-      // get the radius of our buttons
-      board.testButtons.radius = board.paper.width / (6.8 * (parameters.nTestProperties)); 
-    
-      // centres of the n buttons
-      board.testButtons.buttonCentres = Array(parameters.nTestProperties);
-      // we loop to creat evenly spaced button centres,
-      for(var i = 1; i <= board.testButtons.buttonCentres ; i++){
-        // adding the buttons
-        board.testButtons.buttonCentres[i-1] = [(board.paper.width/(parameters.nTestProperties + 1)) * i, board.paper.centre[1] + board.paper.height/5.5];
-      }
-
-
     
       // --------- CODING ------------
       coding = {};

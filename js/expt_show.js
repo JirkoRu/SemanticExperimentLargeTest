@@ -9,6 +9,11 @@ function showTrial() {
     parameters.presentation_time);
 }
 
+function showTestTrial(){
+  showFixation(board.fixation);
+  setTimeout(showIcon, parameters.fix_time)
+}
+
 function showStimuli() {
 
   // this shows an image
@@ -48,14 +53,6 @@ function showNextTrialButton(){
   board.nextTrialButton.object.click(function(e){
     handleNextTrial()})
   board.nextTrialButton.object.toFront();
-}
-
-function showLabels(){
-  // show the labels and move them to the front
-  sdata.property_order[coding.index].map((x, i)=>board.labels.objects[i][x].attr({"opacity": 1}))
-  sdata.property_order[coding.index].map((x, i)=>board.labels.objects[i][x].toFront())
-  //board.labels.objects.map((x,i)=>x.attr({"opacity": 1}));
-  //board.labels.objects.map((x)=>x.toFront());
 }
 
 
@@ -161,8 +158,36 @@ function showIcon(){
   board.iconimage.object.attr({"opacity":1});
 }
 
+function showTestButtons(){
 
+  // allow answering
+  coding.answering = true;
 
+  // show the buttons 
+  board.testButtons.object.map((x)=>x.attr({"opacity": 1}));
+
+  // move to front
+  board.testButtons.object.map((x)=>x.toFront());
+
+  // show the labels and move them to the front
+  sdata.testpropsshuff [coding.index].map((x, i)=>board.testButtons.labelobject[i][x].attr({"opacity": 1}));
+  sdata.testpropsshuff [coding.index].map((x, i)=>board.testButtons.labelobject[i][x].toFront());
+  sdata.testpropsshuff [coding.index].map((x, i)=>board.testButtons.labelobject[i][x].node.setAttribute("pointer-events", "none"));
+
+  // show the submit trial button
+  board.submitButton.object.attr({"opacity": 1});
+  board.submitButton.object.toFront()
+}
+
+function showTestTrial(){
+  // hideTrial();
+  showIcon();
+  showTestButtons();
+}
+
+function showLevelIcon(index){
+  board.levelIcons.objects[index[0]][index[1]].attr({"opacity":1});
+}
 
 
 
