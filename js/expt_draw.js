@@ -103,6 +103,17 @@ function drawFeedback(paper, centres, radius, attrText, text){
   return (feedbackText);
 }
 
+function drawPrimes(paper, texts, attributes, centre){
+  var labels = [];
+
+  for (var i = 0; i < texts.length; i++){
+    label = drawText(paper.object, [centre[0], centre[1]], texts[i]);
+    label.attr(attributes);
+    labels.push(label);
+  }
+  return(labels);
+}
+
 
 
 

@@ -209,10 +209,6 @@ function handleTestButtonFeedback (index){
     // we change the value of our array of responses
     updateTestRespArray(index);
     // update the buttons
-    updateTestButtons(index);
-    // remove the redundant button
-    // removeRedunChoice(index);
-    // update the glow
     updateTestButton(index);
     // we store the response indices
     // storeIndicesAndValues(index, 1);
@@ -225,10 +221,11 @@ function updateTestButtons(index){
 }
 
 function updateTestButton(index){
-    console.log(sdata.test_responses[coding.index][index])
     if (! isNaN(sdata.test_responses[coding.index][index])){
       board.testButtons.object.glow[index] = board.testButtons.object[index].glow()
       board.testButtons.object.glow[index].toFront();
+      board.testButtons.object[index].attr({"fill":board.color_response});
+      showLevelIcon([sdata.test_responses[coding.index][index], index]);
     }
     else{
       board.testButtons.object.glow[index].remove();
@@ -241,13 +238,11 @@ function updateTestRespArray(index){
   var missing_vals = poss_values.filter(function(x){
                                         return sdata.test_responses[coding.index].indexOf(x) < 0;
                                         });
-  console.log(poss_values);
-  console.log(sdata.test_responses[coding.index]);
-  console.log(missing_vals);
   if (isNaN(sdata.test_responses[coding.index][index])){
     sdata.test_responses[coding.index][index] = Math.min(...missing_vals);
   }
   else{
+    hideLevelIcon([sdata.test_responses[coding.index][index], index]);
     sdata.test_responses[coding.index][index] = NaN;
   }
   console.log(sdata.test_responses[coding.index]);

@@ -183,12 +183,17 @@ function showTestTrial(){
   // hideTrial();
   showIcon();
   showTestButtons();
+  showPrime(parameters.primeorder[coding.testblock][coding.testtrial]);
 }
 
 function showLevelIcon(index){
   board.levelIcons.objects[index[0]][index[1]].attr({"opacity":1});
 }
 
+function showPrime(index){
+  board.primes.objects[index-2].attr({"opacity":1});
+  board.primes.objects[index-2].toFront();
+}
 
 
 

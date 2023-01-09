@@ -140,10 +140,16 @@ async function setExperiment() {
   // numbers
   parameters.nb_trials        =   20;
   parameters.nb_blocks        =   8;
+
+  // test
   parameters.nTestTrials      =   64;
+  parameters.nTestBlocks      =   4;
+  parameters.nTestBlocktrials =   16;
+  parameters.nTestProperties  =   3;
+  parameters.primeorder       =   createPrimeOrder();
+  parameters.testPropOder     =   createTestPropOrder();
 
   parameters.nProperties      =  14;
-  parameters.nTestProperties  =   3;
   parameters.nClasses         =   8;
   parameters.nExemplars       =  20;
 
@@ -197,11 +203,11 @@ async function setExperiment() {
   sdata.trialPropShuff    = Array.from(new Array(parameters.stim_order.length), function(){return [];});     // the properties in the order as shuffeled for the current trial
 
   // vbxi for test trials
-  sdata.testprops         = []; 
-  sdata.TestRandomorder   = [];
+  // sdata.testprops         = []; 
+  // sdata.TestRandomorder   = [];
   sdata.testpropsshuff    = [];
   sdata.test_responses    = [...Array(parameters.nTestTrials)].map(e => Array(parameters.nTestProperties).fill(NaN));
-
+  sdata.test_primes       = [];
   // bonus
   sdata.trial_bonus       = [];
   sdata.block_bonus       = [];
@@ -435,7 +441,7 @@ async function setExperiment() {
       // -------------- Draw the Planet icon ----------------
       board.iconimage = {};
       board.iconimage.rectangle = [ board.paper.centre[0] - board.paper.width/5.2,
-                                    board.paper.centre[1] - board.paper.height * (2/5),
+                                    board.paper.centre[1] - board.paper.height * (2/4.45),
                                     board.paper.width/2.6,
                                     board.paper.height/2.6
                                   ];
@@ -489,7 +495,20 @@ async function setExperiment() {
                                           board.paper.height/6
                                         ];
       }
-      
+
+      // ------------------------ draw the prime words -----------------------------------
+      board.primes          = {};
+      board.primes.location = [board.paper.centre[0], board.paper.centre[1]];
+      board.primes.attr     = {"fill":board.color_text,"font-size": board.paper.width/42, "text-anchor" : "middle", "opacity":0};
+      board.primes.words    = board.propertiesShuff.slice(2,6);
+      board.primes.strings  = [];
+      for (let i = 0; i < board.primes.words.length; i++) {
+        board.primes.strings[i] = "You encounter a new planet on which the plant '"  + board.primes.words[i] + "' grows." + 
+                                  `\n What other plants do you think could grow on this planet? \n Rank your choice by clicking the buttons.`
+      }
+      board.primes.objects  = drawPrimes(board.paper, board.primes.strings, board.primes.attr, board.primes.location);
+
+
       // draw the images
       board.levelIcons.objects = [...Array(board.levelIcons.strings.length)].map(e => Array(board.levelIcons.strings.length).fill(NaN));
 
@@ -537,6 +556,10 @@ async function setExperiment() {
       coding.index  = 0;
       coding.trial  = 0;
       coding.block  = 0;
+      // test index
+      coding.testindex  = 0;
+      coding.testtrial  = 0;
+      coding.testblock  = 0;
       // other
       coding.answering = false;
       coding.timestamp = NaN;
@@ -604,6 +627,42 @@ function createRelevPropVectors(){
     }
   }
   return(relevantVectors)
+}
+
+function createPrimeOrder(){
+  // a function to create the order of prime stimuli for each test block
+  var prime_idx = [2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 4, 5, 5, 5, 5];
+  var primeorder = [...Array(parameters.nTestBlocks)].map(e => prime_idx);
+  for (let j = 0; j < parameters.nTestBlocks; j++){
+    var random_prime_order = randperm(parameters.nTestBlocktrials);
+    primeorder[j] =  random_prime_order.map((i)=>primeorder[j][i]);
+  }
+  return(primeorder)
+}
+
+function createTestPropOrder(){
+  // function that creates a test order of the button indices
+  var testproplist          = [...Array(parameters.nTestTrials)].map(e => parameters.nTestProperties);
+  var trial_nr              = 0
+
+  for (let i = 0; i < parameters.nTestBlocks; i++){
+    for (let j = 0; j < parameters.nTestBlocktrials; j++){
+
+      if (parameters.primeorder[i][j] == 2 || parameters.primeorder[i][j] == 3){
+        var testprops_2_3         = [randomElement([0,1]), randomElement([2,3]), randomElement([4,5,6,7])];
+        var randomorder           = randperm(testprops_2_3.length);
+        testproplist[trial_nr]    = randomorder.map((i)=>testprops_2_3[i]);
+      }
+
+      else if (parameters.primeorder[i][j] == 4 || parameters.primeorder[i][j] == 5){
+        var testprops_4_5         = [randomElement([0,1,2,3]), randomElement([4,5]), randomElement([6,7])];
+        var randomorder           = randperm(testprops_4_5.length);
+        testproplist[trial_nr]    = randomorder.map((i)=>testprops_4_5[i]);
+      }
+      trial_nr++
+    }
+  }
+  return(testproplist)
 }
 
 function preloadImages(srcs, continueExp) {

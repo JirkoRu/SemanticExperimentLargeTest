@@ -51,7 +51,6 @@ function newTrial() {
   // update
   updateSdata();
   updateAttempt();
-  //updateStimuli();
 
   // timeout
   window.timeout = setTimeout(handleTimeout, parameters.response_timeout);

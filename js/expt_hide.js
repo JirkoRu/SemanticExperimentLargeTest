@@ -88,3 +88,7 @@ function hideIcon(){
   board.iconimage.object.attr({"opacity":0});
 }
 
+function hideLevelIcon(index){
+  board.levelIcons.objects[index[0]][index[1]].attr({"opacity":0});
+}
+
