@@ -13,6 +13,14 @@ function handleResponse() {
     }
   }
 
+function  handleTestResponse(){
+  hideIcon();
+  hideallLevelIcon();
+  hideTestButtons();
+  hidePrime();
+  nextTestTrial()
+}
+
 function handleNoResponse() {
   if(!isFullscreen() && startedexperiment && !finishedexperiment) {
     finishExperiment_noresponse();
@@ -73,6 +81,28 @@ function handleSubmit(){
         700);
     }
   }
+}
+
+function handleTestSubmit(){
+
+  // a function to be called when clicking the next trial button
+
+  if (! sdata.test_responses[coding.index].includes(NaN)){
+    // // clear the timeout
+    // clearTimeout(window.timeout);
+
+    board.testsubmitButton.object[0].attr({"fill": board.color_response})
+                                        
+    hideSubmitButton(board.testsubmitButton.object);      // hide the button for our next trial
+
+    handleTestResponse();
+  }
+
+  // else{
+  //   console.log("test")
+  //   showSelectionError();
+  //   setTimeout(hideSelectionError(), 700);
+  // }
 }
 
 function saveResponse() {
@@ -221,11 +251,11 @@ function updateTestButtons(index){
 }
 
 function updateTestButton(index){
-    if (! isNaN(sdata.test_responses[coding.index][index])){
+    if (! isNaN(sdata.test_responses[coding.testindex][index])){
       board.testButtons.object.glow[index] = board.testButtons.object[index].glow()
       board.testButtons.object.glow[index].toFront();
       board.testButtons.object[index].attr({"fill":board.color_response});
-      showLevelIcon([sdata.test_responses[coding.index][index], index]);
+      showLevelIcon([sdata.test_responses[coding.testindex][index], index]);
     }
     else{
       board.testButtons.object.glow[index].remove();
@@ -236,16 +266,16 @@ function updateTestButton(index){
 function updateTestRespArray(index){
   var poss_values    = [0,1,2];
   var missing_vals = poss_values.filter(function(x){
-                                        return sdata.test_responses[coding.index].indexOf(x) < 0;
+                                        return sdata.test_responses[coding.testindex].indexOf(x) < 0;
                                         });
-  if (isNaN(sdata.test_responses[coding.index][index])){
-    sdata.test_responses[coding.index][index] = Math.min(...missing_vals);
+  if (isNaN(sdata.test_responses[coding.testindex][index])){
+    sdata.test_responses[coding.testindex][index] = Math.min(...missing_vals);
   }
   else{
     hideLevelIcon([sdata.test_responses[coding.index][index], index]);
-    sdata.test_responses[coding.index][index] = NaN;
+    sdata.test_responses[coding.testindex][index] = NaN;
   }
-  console.log(sdata.test_responses[coding.index]);
+  console.log(sdata.test_responses[coding.testindex]);
 }
 
 

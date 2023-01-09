@@ -67,6 +67,27 @@ function newTrial() {
   //startCountdown();
 }
 
+function newTestTrial(){
+  updateTestSdata();
+  showTestTrial();
+}
+
+function nextTestTrial(){
+  coding.testindex++
+  coding.testtrial++
+
+  if (coding.testtrial == parameters.nTestBlocktrials) {
+    coding.testblock++
+  }
+
+  if (coding.testblock == parameters.nTestBlocks){
+    return
+  }
+  else{
+    newTestTrial();
+  }
+}
+
 function handleTimeout(){
   var att = [sdata.trial_att[coding.index]];
   // make a function that handles a potential timeout

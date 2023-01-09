@@ -161,7 +161,7 @@ function showIcon(){
 function showTestButtons(){
 
   // allow answering
-  coding.answering = true;
+  // coding.answering = true;
 
   // show the buttons 
   board.testButtons.object.map((x)=>x.attr({"opacity": 1}));
@@ -170,13 +170,13 @@ function showTestButtons(){
   board.testButtons.object.map((x)=>x.toFront());
 
   // show the labels and move them to the front
-  sdata.testpropsshuff [coding.index].map((x, i)=>board.testButtons.labelobject[i][x].attr({"opacity": 1}));
-  sdata.testpropsshuff [coding.index].map((x, i)=>board.testButtons.labelobject[i][x].toFront());
-  sdata.testpropsshuff [coding.index].map((x, i)=>board.testButtons.labelobject[i][x].node.setAttribute("pointer-events", "none"));
+  sdata.testpropsshuff [coding.testindex].map((x, i)=>board.testButtons.labelobject[i][x].attr({"opacity": 1}));
+  sdata.testpropsshuff [coding.testindex].map((x, i)=>board.testButtons.labelobject[i][x].toFront());
+  sdata.testpropsshuff [coding.testindex].map((x, i)=>board.testButtons.labelobject[i][x].node.setAttribute("pointer-events", "none"));
 
   // show the submit trial button
-  board.submitButton.object.attr({"opacity": 1});
-  board.submitButton.object.toFront()
+  board.testsubmitButton.object.attr({"opacity": 1});
+  board.testsubmitButton.object.toFront()
 }
 
 function showTestTrial(){

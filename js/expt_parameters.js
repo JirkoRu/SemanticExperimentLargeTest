@@ -504,10 +504,16 @@ async function setExperiment() {
       board.primes.strings  = [];
       for (let i = 0; i < board.primes.words.length; i++) {
         board.primes.strings[i] = "You encounter a new planet on which the plant '"  + board.primes.words[i] + "' grows." + 
-                                  `\n What other plants do you think could grow on this planet? \n Rank your choice by clicking the buttons.`
+                                  `\n What other plants do you think could grow on this planet? \n Rank your choice by clicking all three buttons.`
       }
       board.primes.objects  = drawPrimes(board.paper, board.primes.strings, board.primes.attr, board.primes.location);
 
+      // ----------------------- make a submit button for the test trials ----------
+        // --------- submit button -----------
+        // get the parameters for the next trial button
+        board.testsubmitButton              = {};
+        // create the button and give the relevant attributes
+        board.testsubmitButton.object       = drawRectButton(board.paper, board.submitButton.location, "Submit >>", board.submitButton.attrText, board.submitButton.attrButton, handleTestSubmit);
 
       // draw the images
       board.levelIcons.objects = [...Array(board.levelIcons.strings.length)].map(e => Array(board.levelIcons.strings.length).fill(NaN));

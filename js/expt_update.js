@@ -55,6 +55,6 @@ function updateTestSdata() {
   // sdata.exemplar[coding.index]        = parameters.stim_order[coding.index][1];
   
   // properties of this trial
-  sdata.test_primes[coding.index]    = parameters.primeorder[coding.testblock][coding.testtrial];
-  sdata.testpropsshuff[coding.index] = parameters.testPropOder[coding.index];
+  sdata.test_primes[coding.testindex]    = parameters.primeorder[coding.testblock][coding.testtrial];
+  sdata.testpropsshuff[coding.testindex] = parameters.testPropOder[coding.testindex];
 }

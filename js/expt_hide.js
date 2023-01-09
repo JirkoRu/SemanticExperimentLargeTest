@@ -92,3 +92,23 @@ function hideLevelIcon(index){
   board.levelIcons.objects[index[0]][index[1]].attr({"opacity":0});
 }
 
+function hideallLevelIcon(){
+  board.levelIcons.objects.map((i)=>i.map((j)=>j.attr({"opacity":0})));
+}
+
+function hideTestButtons(){
+  // hide the buttons 
+  board.testButtons.object.map((x)=>x.attr({"opacity": 0}));
+  board.testButtons.object.map((x)=>x.attr({"fill":board.color_background}));
+
+  // hide the labels and move them to the front
+  sdata.testpropsshuff[coding.testindex].map((x, i)=>board.testButtons.labelobject[i][x].attr({"opacity": 0}));
+
+  // remove the glow
+  board.testButtons.object.glow.map((x)=>x.remove());
+
+}
+
+function hidePrime(){
+  board.primes.objects.map((x)=>x.attr({"opacity": 0}));
+}

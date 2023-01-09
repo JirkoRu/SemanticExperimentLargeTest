@@ -8,7 +8,7 @@ function runExperiment(){
   hideAllInstructions();
   
   // START
-  updateTestSdata()
+  updateTestSdata();
   showTestTrial();
   // newTrial();
 }
