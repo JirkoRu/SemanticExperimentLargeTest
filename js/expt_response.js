@@ -6,9 +6,9 @@ function handleResponse() {
     showFeedbackPos();
     setTimeout(function() {
     hideStimuliAndFeedback()   // hide stimuli
-    hideAndResetButtons()       // hide selection buttons
+    hideAndResetButtons()      // hide selection buttons
     hidePermBonus()
-    nextTrial()},               // initate the next trial
+    nextTrial()},              // initate the next trial
     2000);
     }
   }
@@ -18,7 +18,7 @@ function  handleTestResponse(){
   hideallLevelIcon();
   hideTestButtons();
   hidePrime();
-  nextTestTrial()
+  setTimeout(nextTestTrial,500);
 }
 
 function handleNoResponse() {
@@ -84,13 +84,9 @@ function handleSubmit(){
 }
 
 function handleTestSubmit(){
-
   // a function to be called when clicking the next trial button
 
-  if (! sdata.test_responses[coding.index].includes(NaN)){
-    // // clear the timeout
-    // clearTimeout(window.timeout);
-
+  if (! sdata.test_responses[coding.testindex].includes(NaN)){
     board.testsubmitButton.object[0].attr({"fill": board.color_response})
                                         
     hideSubmitButton(board.testsubmitButton.object);      // hide the button for our next trial
@@ -272,10 +268,9 @@ function updateTestRespArray(index){
     sdata.test_responses[coding.testindex][index] = Math.min(...missing_vals);
   }
   else{
-    hideLevelIcon([sdata.test_responses[coding.index][index], index]);
+    hideLevelIcon([sdata.test_responses[coding.testindex][index], index]);
     sdata.test_responses[coding.testindex][index] = NaN;
   }
-  console.log(sdata.test_responses[coding.testindex]);
 }
 
 

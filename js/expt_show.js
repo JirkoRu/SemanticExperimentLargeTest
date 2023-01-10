@@ -9,10 +9,10 @@ function showTrial() {
     parameters.presentation_time);
 }
 
-function showTestTrial(){
-  showFixation(board.fixation);
-  setTimeout(showIcon, parameters.fix_time)
-}
+// function showTestTrial(){
+//   showFixation(board.fixation);
+//   setTimeout(showIcon, parameters.fix_time)
+// }
 
 function showStimuli() {
 
@@ -45,7 +45,7 @@ function showButtons(){
 
   // show the submit trial button
   board.submitButton.object.attr({"opacity": 1});
-  board.submitButton.object.toFront()
+  board.submitButton.object.forEach(el => el.toFront());
 }
 
 function showNextTrialButton(){
@@ -128,6 +128,10 @@ function showBlock(){
   board.block.bonusText = "You received " + (sdata.block_bonus[coding.block-1]).toString() + " out of " + (parameters.nb_trials*3).toString() + " possible bonus points on this block.";
   board.block.bonusobject = drawText(board.paper.object,[board.block.centre[0] , board.block.centre[1] + 100] ,board.block.bonusText);
   board.block.bonusobject.attr({"font-size": 20});
+  // BIND KEYS
+  var space_handle = jwerty.key('space',function(){
+    startBlock();
+  });
 }
 
 function showSelectionError(){
@@ -170,13 +174,14 @@ function showTestButtons(){
   board.testButtons.object.map((x)=>x.toFront());
 
   // show the labels and move them to the front
-  sdata.testpropsshuff [coding.testindex].map((x, i)=>board.testButtons.labelobject[i][x].attr({"opacity": 1}));
-  sdata.testpropsshuff [coding.testindex].map((x, i)=>board.testButtons.labelobject[i][x].toFront());
-  sdata.testpropsshuff [coding.testindex].map((x, i)=>board.testButtons.labelobject[i][x].node.setAttribute("pointer-events", "none"));
+  sdata.testpropsshuff[coding.testindex].map((x, i)=>board.testButtons.labelobject[i][x].attr({"opacity": 1}));
+  sdata.testpropsshuff[coding.testindex].map((x, i)=>board.testButtons.labelobject[i][x].toFront());
+  sdata.testpropsshuff[coding.testindex].map((x, i)=>board.testButtons.labelobject[i][x].node.setAttribute("pointer-events", "none"));
 
   // show the submit trial button
+  // board.submitButton.object.toBack();
   board.testsubmitButton.object.attr({"opacity": 1});
-  board.testsubmitButton.object.toFront()
+  board.testsubmitButton.object.forEach(el => el.toFront());
 }
 
 function showTestTrial(){

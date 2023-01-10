@@ -138,13 +138,13 @@ async function setExperiment() {
   parameters.timeoutMssgtime   =  900;        // length of presentation of timeout mssg
 
   // numbers
-  parameters.nb_trials        =   20;
+  parameters.nb_trials        =   1; // 20;
   parameters.nb_blocks        =   8;
 
   // test
   parameters.nTestTrials      =   64;
   parameters.nTestBlocks      =   4;
-  parameters.nTestBlocktrials =   16;
+  parameters.nTestBlocktrials =   1 // 16;
   parameters.nTestProperties  =   3;
   parameters.primeorder       =   createPrimeOrder();
   parameters.testPropOder     =   createTestPropOrder();
@@ -499,7 +499,7 @@ async function setExperiment() {
       // ------------------------ draw the prime words -----------------------------------
       board.primes          = {};
       board.primes.location = [board.paper.centre[0], board.paper.centre[1]];
-      board.primes.attr     = {"fill":board.color_text,"font-size": board.paper.width/42, "text-anchor" : "middle", "opacity":0};
+      board.primes.attr     = {"fill":board.color_text,"font-size": board.paper.width/50, "text-anchor" : "middle", "opacity":0};
       board.primes.words    = board.propertiesShuff.slice(2,6);
       board.primes.strings  = [];
       for (let i = 0; i < board.primes.words.length; i++) {
