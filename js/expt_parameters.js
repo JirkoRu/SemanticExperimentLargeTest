@@ -138,16 +138,20 @@ async function setExperiment() {
   parameters.timeoutMssgtime   =  900;        // length of presentation of timeout mssg
 
   // numbers
-  parameters.nb_trials        =   1; // 20;
+  parameters.nb_trials        =   20;
   parameters.nb_blocks        =   8;
 
   // test
   parameters.nTestTrials      =   64;
   parameters.nTestBlocks      =   4;
-  parameters.nTestBlocktrials =   1 // 16;
+  parameters.nTestBlocktrials =   16;
   parameters.nTestProperties  =   3;
   parameters.primeorder       =   createPrimeOrder();
+  parameters.testPropCorrectOr=   [...Array(parameters.nTestTrials)].map(e => parameters.nTestProperties);
   parameters.testPropOder     =   createTestPropOrder();
+  console.log(parameters.primeorder);
+  console.log(parameters.testPropOder);
+  console.log(parameters.testPropCorrectOr);
 
   parameters.nProperties      =  14;
   parameters.nClasses         =   8;
@@ -453,6 +457,20 @@ async function setExperiment() {
           );
       board.iconimage.object.attr({"opacity":0});
 
+      // ------------- Draw green Planet Icon -----------------
+      board.iconimageGreen = {};
+      board.iconimageGreen.rectangle = [ board.paper.centre[0] - board.paper.width/5.2,
+                                    board.paper.centre[1] - board.paper.height * (2/4.45),
+                                    board.paper.width/2.6,
+                                    board.paper.height/2.6
+                                  ];
+
+      board.iconimageGreen.object = drawImage(
+          board.paper.object, 
+          "media/testImages/planet_green.png",
+          board.iconimageGreen.rectangle
+          );
+      board.iconimageGreen.object.attr({"opacity":0});
       // -------------- make test buttons ----------
       board.testButtons = {};
       
@@ -495,26 +513,6 @@ async function setExperiment() {
                                           board.paper.height/6
                                         ];
       }
-
-      // ------------------------ draw the prime words -----------------------------------
-      board.primes          = {};
-      board.primes.location = [board.paper.centre[0], board.paper.centre[1]];
-      board.primes.attr     = {"fill":board.color_text,"font-size": board.paper.width/50, "text-anchor" : "middle", "opacity":0};
-      board.primes.words    = board.propertiesShuff.slice(2,6);
-      board.primes.strings  = [];
-      for (let i = 0; i < board.primes.words.length; i++) {
-        board.primes.strings[i] = "You encounter a new planet on which the plant '"  + board.primes.words[i] + "' grows." + 
-                                  `\n What other plants do you think could grow on this planet? \n Rank your choice by clicking all three buttons.`
-      }
-      board.primes.objects  = drawPrimes(board.paper, board.primes.strings, board.primes.attr, board.primes.location);
-
-      // ----------------------- make a submit button for the test trials ----------
-        // --------- submit button -----------
-        // get the parameters for the next trial button
-        board.testsubmitButton              = {};
-        // create the button and give the relevant attributes
-        board.testsubmitButton.object       = drawRectButton(board.paper, board.submitButton.location, "Submit >>", board.submitButton.attrText, board.submitButton.attrButton, handleTestSubmit);
-
       // draw the images
       board.levelIcons.objects = [...Array(board.levelIcons.strings.length)].map(e => Array(board.levelIcons.strings.length).fill(NaN));
 
@@ -527,6 +525,53 @@ async function setExperiment() {
           board.levelIcons.objects[i][k].attr({"opacity":0});
         }
       }
+
+      // ------------- draw the first second and third icons with color ---------------
+      board.levelIconsColor = {};
+      board.levelIconsColor.rectangles = []
+      board.levelIconsColor.strings = ["first_green.png", "second_amber.png", "third_red.png"]
+
+      // make the rectangles
+      for (let k = 0; k < board.testButtons.buttonCentres.length; k++) {
+        board.levelIconsColor.rectangles[k]= [board.testButtons.buttonCentres[k][0] - board.paper.width/12,
+                                          board.testButtons.buttonCentres[k][1] + board.paper.height/12,
+                                          board.paper.width/6,
+                                          board.paper.height/6
+                                        ];
+      }
+
+      // draw the images
+      board.levelIconsColor.objects = [...Array(board.levelIcons.strings.length)].map(e => Array(board.levelIcons.strings.length).fill(NaN));
+
+      for (let i = 0; i < board.levelIconsColor.strings.length; i++) {
+        for (let k = 0; k < board.levelIconsColor.strings.length; k++) {
+          board.levelIconsColor.objects[i][k] = drawImage(board.paper.object, 
+                                                  "media/testImages/" + board.levelIconsColor.strings[i],
+                                                  board.levelIconsColor.rectangles[k]
+                                                  );
+          board.levelIconsColor.objects[i][k].attr({"opacity":0});
+        }
+      }
+
+      // ------------------------ draw the prime words -----------------------------------
+      board.primes          = {};
+      board.primes.location = [board.paper.centre[0], board.paper.centre[1]];
+      board.primes.attr     = {"fill":board.color_text,"font-size": board.paper.width/50, "text-anchor" : "middle", "opacity":0};
+      board.primes.words    = board.propertiesShuff.slice(2,6);
+      board.primes.strings  = [];
+      for (let i = 0; i < board.primes.words.length; i++) {
+        board.primes.strings[i] = "You encounter a new planet on which the plant '" + board.primes.words[i].toUpperCase() + "' grows." + 
+                                  `\n What other plants do you think could grow on this planet? \n Rank your choice by clicking all three buttons.`
+      }
+      board.primes.objects  = drawPrimes(board.paper, board.primes.strings, board.primes.attr, board.primes.location);
+
+      // ----------------------- make a submit button for the test trials ----------
+        // --------- submit button -----------
+        // get the parameters for the next trial button
+        board.testsubmitButton              = {};
+        // create the button and give the relevant attributes
+        board.testsubmitButton.object       = drawRectButton(board.paper, board.submitButton.location, "Submit >>", board.submitButton.attrText, board.submitButton.attrButton, handleTestSubmit);
+
       // ------- Stimuli ----------
     
       //loading all the images for all the classes
@@ -648,8 +693,8 @@ function createPrimeOrder(){
 
 function createTestPropOrder(){
   // function that creates a test order of the button indices
-  var testproplist          = [...Array(parameters.nTestTrials)].map(e => parameters.nTestProperties);
-  var trial_nr              = 0
+  var testproplist = [...Array(parameters.nTestTrials)].map(e => parameters.nTestProperties);
+  var trial_nr     = 0
 
   for (let i = 0; i < parameters.nTestBlocks; i++){
     for (let j = 0; j < parameters.nTestBlocktrials; j++){
@@ -658,12 +703,28 @@ function createTestPropOrder(){
         var testprops_2_3         = [randomElement([0,1]), randomElement([2,3]), randomElement([4,5,6,7])];
         var randomorder           = randperm(testprops_2_3.length);
         testproplist[trial_nr]    = randomorder.map((i)=>testprops_2_3[i]);
+        if (parameters.primeorder[i][j] == 2){
+          var correct = [0,1,2];
+          parameters.testPropCorrectOr[trial_nr] = randomorder.map((i)=>correct[i]);
+        }
+        else{
+          var correct = [1,0,2];
+          parameters.testPropCorrectOr[trial_nr] = randomorder.map((i)=>correct[i]);
+        }
       }
 
       else if (parameters.primeorder[i][j] == 4 || parameters.primeorder[i][j] == 5){
         var testprops_4_5         = [randomElement([0,1,2,3]), randomElement([4,5]), randomElement([6,7])];
         var randomorder           = randperm(testprops_4_5.length);
         testproplist[trial_nr]    = randomorder.map((i)=>testprops_4_5[i]);
+        if (parameters.primeorder[i][j] == 4){
+          var correct = [2,0,1];
+          parameters.testPropCorrectOr[trial_nr] = randomorder.map((i)=>correct[i]);
+        }
+        else{
+          var correct = [2,1,0];
+          parameters.testPropCorrectOr[trial_nr] = randomorder.map((i)=>correct[i]);
+        }
       }
       trial_nr++
     }

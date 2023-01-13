@@ -8,17 +8,35 @@ function handleResponse() {
     hideStimuliAndFeedback()   // hide stimuli
     hideAndResetButtons()      // hide selection buttons
     hidePermBonus()
-    nextTrial()},              // initate the next trial
+    nextTrial()},              // initiate the next trial
     2000);
     }
   }
 
 function  handleTestResponse(){
-  hideIcon();
-  hideallLevelIcon();
-  hideTestButtons();
-  hidePrime();
-  setTimeout(nextTestTrial,500);
+  // if they are correct
+  if (arraysEqual(sdata.test_responses[coding.testindex], parameters.testPropCorrectOr[coding.testindex])){
+    console.log("It worked");
+    hideallLevelIcon();
+    hideIcon();
+    showFeedbackIcons();
+    showGreenIcon();
+    setTimeout(function(){hideGreenIcon();
+      hideTestButtons();
+      hidePrime();
+      hideFeedbackIcons()}, 3000)
+      setTimeout(nextTestTrial, 3500);
+  }
+  else{
+    console.log("else");
+    hideallLevelIcon();
+    showFeedbackIcons();
+    setTimeout(function(){hideIcon();
+    hideTestButtons();
+    hidePrime();
+    hideFeedbackIcons()}, 3000)
+    setTimeout(nextTestTrial, 3500);
+  }
 }
 
 function handleNoResponse() {

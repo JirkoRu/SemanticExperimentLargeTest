@@ -59,7 +59,7 @@ function setInstructions(){
 	ins.screenWiseInstr = {};
 	ins.screenWiseInstr.loc = [board.paper.centre[0], board.paper.centre[1] - .42 * board.paper.height];
 	ins.screenWiseInstr.attr = {"fill":board.color_text,"font-size": board.paper.width/42, "text-anchor" : "middle", "opacity":0};
-	ins.screenWiseInstr.strings = [ `In this task you will play a space botanist encounterting new alien plantes. \n
+	ins.screenWiseInstr.strings = [ `In this task, you will play a space botanist encounterting new alien planets. \n
 									As a diligent botanist you have to learn which plants can grow on which planets.`,
 									"On each trial you will first see a black dot.", 
 									`Your task is to associate types of alien planets with the plants that grow on them. \n 

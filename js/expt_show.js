@@ -162,6 +162,10 @@ function showIcon(){
   board.iconimage.object.attr({"opacity":1});
 }
 
+function showGreenIcon(){
+  board.iconimageGreen.object.attr({"opacity":1});
+}
+
 function showTestButtons(){
 
   // allow answering
@@ -193,6 +197,23 @@ function showTestTrial(){
 
 function showLevelIcon(index){
   board.levelIcons.objects[index[0]][index[1]].attr({"opacity":1});
+}
+
+function showFeedbackIcons(){
+  parameters.testPropCorrectOr[coding.testindex].map((x, i)=>board.levelIconsColor.objects[x][i].attr({"opacity":1}));
+
+  // change button colour
+  for(let i = 0; i < parameters.nTestProperties; i++){
+    if (parameters.testPropCorrectOr[coding.testindex][i] == 0){
+      board.testButtons.object[i].attr({"fill":"#32CD32"});
+    }
+    else if(parameters.testPropCorrectOr[coding.testindex][i] == 1){
+      board.testButtons.object[i].attr({"fill":"#ffbf00"});
+    }
+    else{
+      board.testButtons.object[i].attr({"fill":"#FF0000"});
+    }
+  }
 }
 
 function showPrime(index){

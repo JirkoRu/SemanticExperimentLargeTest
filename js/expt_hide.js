@@ -88,6 +88,10 @@ function hideIcon(){
   board.iconimage.object.attr({"opacity":0});
 }
 
+function hideGreenIcon(){
+  board.iconimageGreen.object.attr({"opacity":0});
+}
+
 function hideLevelIcon(index){
   board.levelIcons.objects[index[0]][index[1]].attr({"opacity":0});
 }
@@ -111,4 +115,8 @@ function hideTestButtons(){
 
 function hidePrime(){
   board.primes.objects.map((x)=>x.attr({"opacity": 0}));
+}
+
+function hideFeedbackIcons(){
+  parameters.testPropCorrectOr[coding.testindex].map((x, i)=>board.levelIconsColor.objects[x][i].attr({"opacity":0}));
 }
