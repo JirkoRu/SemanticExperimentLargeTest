@@ -15,18 +15,6 @@ function handleResponse() {
 
 function  handleTestResponse(){
   // if they are correct
-  if (arraysEqual(sdata.test_responses[coding.testindex], parameters.testPropCorrectOr[coding.testindex])){
-    console.log("It worked");
-    hideallLevelIcon();
-    hideIcon();
-    showFeedbackIcons();
-    setTimeout(function(){
-      hideTestButtons();
-      hidePrime();
-      hideFeedbackIcons()}, 3000)
-      setTimeout(nextTestTrial, 3500);
-  }
-  else{
     console.log("else");
     hideallLevelIcon();
     showFeedbackIcons();
@@ -35,7 +23,6 @@ function  handleTestResponse(){
     hidePrime();
     hideFeedbackIcons()}, 3000)
     setTimeout(nextTestTrial, 3500);
-  }
 }
 
 function handleNoResponse() {
