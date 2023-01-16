@@ -114,5 +114,5 @@ function hidePrime(){
 }
 
 function hideFeedbackIcons(){
-  parameters.testPropCorrectOr[coding.testindex].map((x, i)=>board.levelIconsColor.objects[x][i].attr({"opacity":0}));
+  sdata.test_responses[coding.testindex].map((x, i)=>board.levelIconsColor.objects[x][i].attr({"opacity":0}));
 }

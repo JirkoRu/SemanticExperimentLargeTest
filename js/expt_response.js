@@ -15,14 +15,13 @@ function handleResponse() {
 
 function  handleTestResponse(){
   // if they are correct
-    console.log("else");
     hideallLevelIcon();
     showFeedbackIcons();
     setTimeout(function(){hideIcon();
     hideTestButtons();
     hidePrime();
-    hideFeedbackIcons()}, 3000)
-    setTimeout(nextTestTrial, 3500);
+    hideFeedbackIcons()}, 3500)
+    setTimeout(nextTestTrial, 4000);
 }
 
 function handleNoResponse() {

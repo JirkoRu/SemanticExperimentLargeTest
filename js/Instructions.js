@@ -11,8 +11,8 @@ function loadInstructions(){
 							board.paper.height/1.5
 							];
 	
-	ins.images.objects = Array(8);
-	for (let i = 0; i <= 7; i++){
+	ins.images.objects = Array(12);
+	for (let i = 0; i <= 11; i++){
 		ins.images.objects[i] = drawImage(board.paper.object, 
 									"media/Instructions/instructions_" + (i).toString() + ".png",
 									ins.images.rectangle);
@@ -76,12 +76,20 @@ function setInstructions(){
 									You will have to keep trying until your answer is correct. \n
 									You will only get bonus for answers on your first attempt, so try to get it right!`,
 									`Once your answer is correct we will move on to the next trial. \n
-									After each block we will tell you how many bonus points you got.`
+									After each block we will tell you how many bonus points you got.`, 
+									`Sometimes, after a set of attempts, you will come across a new task. \n
+									Here, you have to guess which plants can grow on a planet that also has another plant on it.`,
+									`Order the suggested plants from most likely to least likely by clicking the buttons. \n
+									You can also un-click buttons and reorder if you change your mind.`,
+									"After you have clicked all three buttons you can click 'Submit >>'. ",
+									`Then you will receive feedback. \n 
+									The buttons will change colour to show the correct order. \n 
+									The green button should have been 1, the yellow button on 2, and the red button on 3.`,
 									];
 
-	ins.screenWiseInstr.objects = Array(8);
+	ins.screenWiseInstr.objects = Array(12);
 
-	for(let j = 0; j < 8; j++){
+	for(let j = 0; j < 12; j++){
 		ins.screenWiseInstr.objects[j] = drawText(board.paper.object, ins.screenWiseInstr.loc, ins.screenWiseInstr.strings[j]);
 		ins.screenWiseInstr.objects[j].attr(ins.screenWiseInstr.attr);
 	}
@@ -99,7 +107,7 @@ function handlePreviousInst(){
 }
 
 function handleNextInst(){
-	if(ins.current != 8){
+	if(ins.current != 12){
 		ins.images.objects[ins.current].attr({"opacity": 0});
 		// hide the large instructions
 		ins.screenWiseInstr.objects[ins.current].attr({"opacity": 0})
@@ -135,11 +143,11 @@ function showButtonTexts(){
 		ins.buttons.nextText.object.attr({"opacity": 1});
 		ins.buttons.nextText.object.toFront();
 	}
-	else if (ins.current != 0 && ins.current != 7){
+	else if (ins.current != 0 && ins.current != 11){
 		ins.buttons.nextAndPrevText.object.attr({"opacity": 1});
 		ins.buttons.nextAndPrevText.object.toFront();
 	}
-	else if (ins.current == 7){
+	else if (ins.current == 11){
 		ins.buttons.previousText.object.attr({"opacity": 1});
 		ins.buttons.previousText.object.toFront();
 	}
@@ -151,13 +159,13 @@ function showNextInstButton(){
 		ins.buttons.previousButton.attr({"opacity": 1});
 		ins.buttons.previousButton.toFront();
 	}
-	if (ins.current != 7){
+	if (ins.current != 11){
 		// button
 		ins.buttons.nextButton.attr({"opacity": 1});
 		ins.buttons.nextButton.toFront();
 	}
 
-	if (ins.current == 7){
+	if (ins.current == 11){
 		// button
 		ins.buttons.startExp.attr({"opacity": 1})
 		ins.buttons.startExp.toFront();

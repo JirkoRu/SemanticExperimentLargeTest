@@ -110,11 +110,13 @@ function showCorrect(trialProperties){
     }
   }
 }
+
 function showPermBonus(){
   // function that shows bonus on each trial
   board.perm_bonus.object = drawText(board.paper.object, board.perm_bonus.location, "Block Bonus: " + sdata.current_bonus.toString());
   board.perm_bonus.object.attr(board.perm_bonus.attributes);
 }
+
 function showBlock(){
   // function to show after a specific block
   board.block = {};
@@ -196,7 +198,7 @@ function showLevelIcon(index){
 }
 
 function showFeedbackIcons(){
-  parameters.testPropCorrectOr[coding.testindex].map((x, i)=>board.levelIconsColor.objects[x][i].attr({"opacity":1}));
+  sdata.test_responses[coding.testindex].map((x, i)=>board.levelIconsColor.objects[x][i].attr({"opacity":1}));
 
   // change button colour
   for(let i = 0; i < parameters.nTestProperties; i++){
