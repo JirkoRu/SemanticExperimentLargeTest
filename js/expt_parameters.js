@@ -476,7 +476,7 @@ async function setExperiment() {
       
       // define button relevant parameters for drawing the test Buttons //
       // get the radius of our buttons
-      board.testButtons.radius = board.paper.width / (6.8 * (parameters.nTestProperties)); 
+      board.testButtons.radius = board.paper.width / (8 * (parameters.nTestProperties)); 
     
       // centres of the n buttons
       board.testButtons.buttonCentres = Array(parameters.nTestProperties);
@@ -507,12 +507,13 @@ async function setExperiment() {
 
       // make the rectangles
       for (let k = 0; k < board.testButtons.buttonCentres.length; k++) {
-        board.levelIcons.rectangles[k]= [board.testButtons.buttonCentres[k][0] - board.paper.width/12,
+        board.levelIcons.rectangles[k]= [board.testButtons.buttonCentres[k][0] - board.paper.width/16,
                                           board.testButtons.buttonCentres[k][1] + board.paper.height/12,
-                                          board.paper.width/6,
+                                          board.paper.width/8,
                                           board.paper.height/6
                                         ];
       }
+
       // draw the images
       board.levelIcons.objects = [...Array(board.levelIcons.strings.length)].map(e => Array(board.levelIcons.strings.length).fill(NaN));
 
@@ -533,9 +534,9 @@ async function setExperiment() {
 
       // make the rectangles
       for (let k = 0; k < board.testButtons.buttonCentres.length; k++) {
-        board.levelIconsColor.rectangles[k]= [board.testButtons.buttonCentres[k][0] - board.paper.width/12,
+        board.levelIconsColor.rectangles[k]= [board.testButtons.buttonCentres[k][0] - board.paper.width/16,
                                           board.testButtons.buttonCentres[k][1] + board.paper.height/12,
-                                          board.paper.width/6,
+                                          board.paper.width/8,
                                           board.paper.height/6
                                         ];
       }
