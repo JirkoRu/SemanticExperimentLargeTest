@@ -20,8 +20,7 @@ function  handleTestResponse(){
     hideallLevelIcon();
     hideIcon();
     showFeedbackIcons();
-    showGreenIcon();
-    setTimeout(function(){hideGreenIcon();
+    setTimeout(function(){
       hideTestButtons();
       hidePrime();
       hideFeedbackIcons()}, 3000)

@@ -162,10 +162,6 @@ function showIcon(){
   board.iconimage.object.attr({"opacity":1});
 }
 
-function showGreenIcon(){
-  board.iconimageGreen.object.attr({"opacity":1});
-}
-
 function showTestButtons(){
 
   // allow answering

@@ -456,21 +456,6 @@ async function setExperiment() {
           board.iconimage.rectangle
           );
       board.iconimage.object.attr({"opacity":0});
-
-      // ------------- Draw green Planet Icon -----------------
-      board.iconimageGreen = {};
-      board.iconimageGreen.rectangle = [ board.paper.centre[0] - board.paper.width/5.2,
-                                    board.paper.centre[1] - board.paper.height * (2/4.45),
-                                    board.paper.width/2.6,
-                                    board.paper.height/2.6
-                                  ];
-
-      board.iconimageGreen.object = drawImage(
-          board.paper.object, 
-          "media/testImages/planet_green.png",
-          board.iconimageGreen.rectangle
-          );
-      board.iconimageGreen.object.attr({"opacity":0});
       // -------------- make test buttons ----------
       board.testButtons = {};
       
