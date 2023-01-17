@@ -138,20 +138,17 @@ async function setExperiment() {
   parameters.timeoutMssgtime   =  900;        // length of presentation of timeout mssg
 
   // numbers
-  parameters.nb_trials        =   20;
+  parameters.nb_trials        =   2;//20;
   parameters.nb_blocks        =   8;
 
   // test
-  parameters.nTestTrials      =   64;
+  parameters.nTestTrials      =   8// 64;
   parameters.nTestBlocks      =   4;
-  parameters.nTestBlocktrials =   16;
+  parameters.nTestBlocktrials =   2;//16;
   parameters.nTestProperties  =   3;
   parameters.primeorder       =   createPrimeOrder();
   parameters.testPropCorrectOr=   [...Array(parameters.nTestTrials)].map(e => parameters.nTestProperties);
   parameters.testPropOder     =   createTestPropOrder();
-  console.log(parameters.primeorder);
-  console.log(parameters.testPropOder);
-  console.log(parameters.testPropCorrectOr);
 
   parameters.nProperties      =  14;
   parameters.nClasses         =   8;

@@ -30,6 +30,7 @@ function nextTrial() {
     sdata.current_bonus=0;
     // start the test trials
     if ([2,4,6,8].includes(coding.block)){
+      hidePermBonus();
       newTestTrial(); 
     }
     else{
@@ -93,10 +94,6 @@ function nextTestTrial(){
     }
   }
 
-  else if (coding.testblock == parameters.nTestBlocks){
-    return
-  }
-
   else{
     newTestTrial();
   }
@@ -110,6 +107,7 @@ function handleTimeout(){
       hideStimuliAndFeedback()   // hide stimuli
       hideAndResetButtons();
       hideSubmitButton(board.submitButton.object);
+      hidePermBonus();
       showTimeoutMssg();
       setTimeout(function(){hideTimeoutMssg();
                             nextTrial();}

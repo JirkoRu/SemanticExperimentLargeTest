@@ -7,6 +7,6 @@ function runExperiment(){
   // START
   // updateTestSdata();
   // showTestTrial();
-  // newTrial();
-  newTestTrial();
+  newTrial();
+  // newTestTrial();
 }

@@ -61,7 +61,7 @@ function hideLoadMessage (){
 function hideBlock() {
   board.block.object.remove();
   board.block.blockobject.remove();
-  board.block.bonusobject.remove()
+  board.block.bonusobject.remove();
 }
 
 function hideSelectionError(){
